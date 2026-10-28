@@ -19,6 +19,10 @@ RUN npm run build
 EXPOSE 3000
 CMD ["npm", "run", "dev"]
 
+# Test stage: run automated tests in container
+FROM dev AS test
+CMD ["npm", "test"]
+
 # Deps stage: install production dependencies only.
 FROM node:20-alpine AS deps
 

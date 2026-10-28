@@ -7,7 +7,7 @@ import express, { type Request, type Response } from "express";
 import { Pool } from "pg";
 import { readFileSync } from "fs";
 
-const app = express();
+export const app = express();
 const port = parseInt(process.env.PORT ?? "3000", 10);
 
 app.use(express.json());
@@ -71,6 +71,9 @@ app.get("/heroes/", async (_req: Request, res: Response) => {
   res.json(result.rows);
 });
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+// Only start the server when this file is run directly.
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+  });
+}
